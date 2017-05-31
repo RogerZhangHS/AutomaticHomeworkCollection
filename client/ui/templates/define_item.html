@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+{{template "head.html" .}}
+ <body>
+  <div class="container-fluid">
+
+    <div class="row">
+     <div class="col-xs-1 col-md-1"></div>
+     <div class="clearfix visible-xs-block"></div>
+     <div class="col-xs-10 col-md-10">          
+
+      <h1><i class="fa fa-barcode"></i> {{.Item.Barcode}}</h1>
+
+
+      {{if .FormMessage}}<div class="alert alert-info" role="alert"><i class="fa fa-info-circle"></i> {{.FormMessage}}</div>{{end}}
+      {{if .FormError}}<div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-triangle"></i> {{.FormError}}</div>{{end}}
+
+      <form role="form" class="form-horizontal" action="/input/{{.Students.StuId}}" method="POST">
+	<input type="hidden" name="id" value="{{.Students.id}}">
+	<input type="hidden" name="StuId" value="{{.Students.StuId}}">
+
+	<div class="form-group">
+	  <label for="stuName">Student Name</label>
+	  <input type="text" class="form-control" id="stuName" name="stuName" placeholder="Type the name of the student here">
+	</div>
+
+	<button type="submit" class="btn btn-primary"><i class="fa fa-check-square-o"></i> Save</button>
+	<a href="{{.CancelUrl}}" class="btn btn-danger" role="button"><i class="fa fa-times"></i> Cancel</a>
+      </form>
+
+    </div>
+   </div>
+
+  </div>
+  <!-- /container -->
+
+{{template "scripts.html"}}
+  <script src="/js/contribute.js"></script>
+ </body>
+</html>
+
+

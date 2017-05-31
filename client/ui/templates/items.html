@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+{{template "head.html" .}}
+ <body>
+  <div class="container-fluid">
+
+   {{template "navigation_tabs.html" .ActiveTab}}
+
+   {{if .PageMessage}}
+   <div class="row">
+     <div class="col-xs-1 col-md-1"></div>
+     <div class="clearfix visible-xs-block"></div>
+     <div class="col-xs-10 col-md-10">
+       <div class="alert alert-info alert-dismissible" role="alert">
+	 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	 <i class="fa fa-info-circle"></i> {{.PageMessage}}
+       </div>
+     </div>
+   </div>
+   {{end}}   
+   
+   <!-- items (outer) -->
+   <div class="row">
+     <div class="col-xs-1 col-md-1"></div>
+     <div class="clearfix visible-xs-block"></div>
+     <div class="col-xs-10 col-md-10">
+      {{if .Students}}
+      <form id="bulkActions" method="POST" action="">
+	<input type="hidden" id="account" name="account" value="{{.Account.Id}}">
+	<!-- options (for selected items) -->
+	<div class="row item-header">
+	  <div class="col-xs-2 col-sm-1"><input id="id_actions_chk" type="checkbox" /></div>
+	  <div class="col-xs-10 col-sm-7">
+	    <a class="dropdown-toggle category" data-toggle="dropdown" href="#" style="display:none" id="id_actions"><strong><i class="fa fa-caret-square-o-down"></i> Apply Action</strong></a>
+	    <ul id="category" class="dropdown-menu">
+	      {{template "actions.html" .Actions}}
+	    </ul>
+	  </div>
+	</div>
+
+	<!-- items (inner) -->
+	{{range $student := .Students}}
+	<!-- item -->
+	<div class="row item" id="Student_{{$student.id}}">
+	  <div class="col-xs-2 col-sm-1"><input type="checkbox" class="chk_item" name="student" value="{{$student.id}}" />{{end}}</div>
+	  <div class="col-xs-10 col-sm-7">
+          <div class="product product-{{if $student.Submitted}}found{{else}}unknown{{end}}">{{if $item.Name}}{{$item.Name}}{{else}}<i class="fa fa-exclamation-triangle"></i> STUDENT NOT FOUND <a href="/input/{{$student.Id}}"><i class="fa fa-pencil"></i></a>{{end}}</div>
+	    <div class="barcode">
+	      <span class="fa-stack">
+		<i class="fa fa-barcode fa-stack-1x"></i>
+		<i class="fa fa-ban fa-stack-2x text-danger"></i>
+	      </span>
+	      {{$student.StuId}}
+	    </div>
+	  </div>
+	</div>
+	{{end}}
+      </form>
+      {{else}}
+      <div class="row">
+	<div class="col-xs-2 col-sm-1"></div>
+	<div class="col-xs-10 col-sm-7 no-items">
+	  <h2><i class="fa fa-frown-o"></i> No Student</h2>
+	</div>
+      </div>
+      {{end}}
+
+    </div>
+   </div>
+   <!-- /items (outer) -->
+
+   {{template "modal.html"}}
+  </div>
+  <!-- /container -->
+
+{{template "scripts.html"}}
+  <script src="/js/modernizr.js"></script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/controls.js"></script>
+ </body>
+</html>

@@ -1,0 +1,13 @@
+{{if .ShowTabs}}
+<div class="row">
+  <div class="col-xs-1 col-md-1"></div>
+  <div class="clearfix visible-xs-block"></div>
+  <div class="col-xs-10 col-md-10">
+    <ul class="nav nav-tabs" role="tablist">
+      <li><a class="shutdown" href="/shutdown/"><i class="fa fa-power-off"></i></a></li>
+      <li><a href="/submission/"><i class="fa fa-refresh"></i></a></li>
+      <li{{if .Submission}} class="active"{{end}}><a href="/scanned/"><i class="fa fa-barcode"></i> Submission</a></li>
+    </ul>
+  </div>
+</div>
+{{end}}

@@ -1,0 +1,5 @@
+// Completed
+$(function(){
+    $("#stuName").focus();
+});
+
